@@ -74,6 +74,7 @@ func (ge GeneticAlgorithm) EvaluateFitness(p Path) float64 {
 	length := 0.0
 	for _, i := range p {
 		length += ge.graph[p[i]][p.next(i)]
+		length += ge.graph[p[i]][p.next(i, ge.nodeCount)]
 	}
 	return 1 / length
 }
@@ -81,6 +82,7 @@ func (ge GeneticAlgorithm) EvaluateFitness(p Path) float64 {
 func (ge *GeneticAlgorithm) ApplyLocalOptimization() {
 	for i := 0; i < len(ge.population); i++ {
 		ge.currentFitnesses[i], ge.population[i] = ge.localOptimizer.Solve(ge.population[i])
+		fmt.Println(i)
 	}
 }
 
@@ -144,7 +146,10 @@ func (ge *GeneticAlgorithm) reproduce() {
 // Note: algorithm has no guarantee on optimality
 func (ge *GeneticAlgorithm) Simulate(popSize, generationCount int) (float64, Path) {
 	ge.createPopulation(popSize)
+
+	fmt.Println("Starting Local Optimization")
 	ge.ApplyLocalOptimization()
+	fmt.Println("Finished Applying Local Optimization")
 
 	for i := 0; i < generationCount; i++ {
 		ge.currentFitnesses = ge.evaluatePopulation()

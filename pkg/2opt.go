@@ -55,10 +55,7 @@ func (to TwoOpt) Solve(initialPath Path) (float64, Path) {
 func (to TwoOpt) evaluatePath(p Path) float64 {
 	length := 0.0
 	for _, i := range p {
-		//if index == len(p)-1 {
-		//	break
-		//}
-		length += to.graph[p[i]][p.next(i)]
+		length += to.graph[p[i]][p.next(i, to.size)]
 	}
 	return length
 }
@@ -66,7 +63,7 @@ func (to TwoOpt) evaluatePath(p Path) float64 {
 // evaluatePathDiff calculates (Length of current edges) - (length of swapped edges)
 // used for efficient calculation of paths
 func (to TwoOpt) evaluatePathDiff(p Path, i, j int) float64 {
-	return (to.graph[p[i]][p.next(i)] + to.graph[p[j]][p.next(j)]) - (to.graph[p[i]][p[j]] + to.graph[p.next(i)][p.next(j)])
+	return (to.graph[p[i]][p.next(i, to.size)] + to.graph[p[j]][p.next(j, to.size)]) - (to.graph[p[i]][p[j]] + to.graph[p.next(i, to.size)][p.next(j, to.size)])
 }
 
 // crossover swaps two edges that start with v1 and v2 (as in, they come first in the path)
