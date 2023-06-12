@@ -1,8 +1,12 @@
 package pkg
 
+import "fmt"
+
 type TwoOpt struct {
 	graph Graph
 	size  int
+
+	Output bool
 }
 
 func NewTwoOpt(graph Graph) TwoOpt {
@@ -45,9 +49,11 @@ func (to TwoOpt) Solve(initialPath Path) (float64, Path) {
 
 	minCost = to.evaluatePath(currentPath)
 
-	//fmt.Println("\nOutcome of 2-Opt\n===============================")
-	//fmt.Printf("Min cost: %f\n", minCost)
-	//fmt.Printf("Path found: %v\n", currentPath)
+	if to.Output {
+		fmt.Println("\nOutcome of 2-Opt\n===============================")
+		fmt.Printf("Min cost: %f\n", minCost)
+		fmt.Printf("Path found: %v\n", currentPath)
+	}
 	return minCost, currentPath
 }
 

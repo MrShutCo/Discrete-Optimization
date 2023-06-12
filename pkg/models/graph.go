@@ -12,15 +12,15 @@ func (n Node) GetIndex() int {
 type Graph struct {
 	adjacencyList [][]float64
 
-	nodes []Node
+	nodes []int
 }
 
 func (g Graph) IsNeighbour(v1, v2 int) bool {
 	return g.adjacencyList[v1][v2] != 0
 }
 
-func (g Graph) GetNeighbours(v1 int) []Node {
-	neighbours := []Node{}
+func (g Graph) GetNeighbours(v1 int) []int {
+	neighbours := []int{}
 	for v2 := 0; v2 < len(g.nodes); v2++ {
 		if g.adjacencyList[v1][v2] != 0 {
 			neighbours = append(neighbours, g.nodes[v2])

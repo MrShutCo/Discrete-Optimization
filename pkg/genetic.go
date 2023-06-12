@@ -73,7 +73,6 @@ func (ge *GeneticAlgorithm) evaluatePopulation() PopulationFitness {
 func (ge GeneticAlgorithm) EvaluateFitness(p Path) float64 {
 	length := 0.0
 	for _, i := range p {
-		length += ge.graph[p[i]][p.next(i)]
 		length += ge.graph[p[i]][p.next(i, ge.nodeCount)]
 	}
 	return 1 / length

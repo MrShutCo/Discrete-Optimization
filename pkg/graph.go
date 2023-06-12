@@ -1,6 +1,6 @@
 package pkg
 
-const NODE_COUNT = 1001
+const NODE_COUNT = 280
 
 type Graph [][]float64
 type Path []int
